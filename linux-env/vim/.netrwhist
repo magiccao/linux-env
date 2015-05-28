@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/home/work/golang-lib/src/www.baidu.com/golang-lib/l2queue'
+let g:netrw_dirhist_2='/home/work/go-project/block-server/src/block_conf'
+let g:netrw_dirhist_3='/home/work/block-server/src/block_pb'
+let g:netrw_dirhist_4='/home/work/dict-server/src/dict_server'
+let g:netrw_dirhist_5='/home/work/dict-server/src/dict_conf'
+let g:netrw_dirhist_6='/home/work/golang-lib/src/www.baidu.com/golang-lib/ipdict/test'

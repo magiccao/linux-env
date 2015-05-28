@@ -1,0 +1,55 @@
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+. ~/.bashrc
+fi
+#export GOPATH=/home/work/go:/home/work/go-bfe/go-bfe/:/home/work/golang-lib:/home/work/go-project/block-server
+#export GOPATH=$GOPATH:/home/work/workroot/bfe/bfe-common/golang-lib/:/home/work/workroot/bfe/go-bfe/block-server:/home/work/go:/home/work/go-bfe/go-bfe/:/home/work/golang-lib:/home/work/go-project/block-server:/home/work/block-server:/home/work/dict-server
+export GOPATH=$GOPATH:/home/work/0729/bfe_workroot4/op/oped/noah/bfe/bfe-common/golang-lib:/home/work/0729/bfe_workroot4/op/oped/noah/bfe/go-bfe/go-bfe:/home/work/0729/bfe_workroot4/op/oped/noah/bfe/go-bfe/dict-server:/home/work/0729/bfe_workroot4/op/oped/noah/bfe/bfe-platform/bfe-config/conf-generator
+
+set -o vi
+# User specific environment and startup programs
+
+export GOROOT=/home/work/0729/bfe_workroot4/op/oped/noah/bfe/go-bfe/go-bfe/go
+export  SCMPF_MODULE_VERSION=1.1.1.1
+#export GODEBUG=gctrace=1
+alias "god"="GODEBUG=gctrace=1 go"
+#PATH=$PATH:$HOME/bin:/home/work/zhangjiyang/tools/svn/bin:$GOPATH/bin:/home/work/golang-lib/bin:/home/work/.vim-go
+PATH=/home/work/odp/php/bin/:$GOROOT/bin:$PATH:$HOME/bin:$GOPATH/bin:/home/work/golang-lib/bin:/home/work/.vim-go
+alias "csvn"="LC_CTYPE=en_US.UTF-8 svn"
+alias "less"="less -r"
+export PATH
+
+#unset USERNAME
+export EDITOR="vim"
+alias "dev"='cd /home/work/0729/bfe_workroot4/op/oped/noah/bfe'
+alias "mc"='make clean'
+alias "m"='make'
+alias "upload"='LC_CTYPE=en_US.UTF-8 /home/work/zhangjiyang/tools/upload/upload.py'
+alias "um"='LC_CTYPE=en_US.UTF-8 /home/work/zhangjiyang/tools/upload/upload.py --nomail'
+
+alias "json"='python -mjson.tool'
+###############Please don't modify this section, or errors will occur!###############
+#BTEST_FLAG_START
+export BTEST_WORK_ROOT=/home/work//
+export BTEST_HOME=/home/work/btest
+export GTEST_HOME=/home/work/com/btest/gtest/output
+export LD_LIBRARY_PATH=$GTEST_HOME/lib:$LD_LIBRARY_PATH
+export PATH=/home/work/zhangjiyang/tools//bin:$BTEST_HOME/bin:$PATH
+#BTEST_FLAG_END
+###############Please don't modify this section, or errors will occur!###############
+### BEGIN-ERRHUNTER-PATH please don't manualy change this format!! Or it will cause failure!
+export ERRHUNTER_HOME=/home/work/btest/errHunter
+export PATH=$ERRHUNTER_HOME:$PATH
+export LD_LIBRARY_PATH=$ERRHUNTER_HOME/lib/:$LD_LIBRARY_PATH
+### END-ERRHUNTER-PATH #################
+export ERRHUNTER_UPDATE_DATE=09/12/13
+PATH=/home/work/zhangjiyang/tools/scm_autobuild/usr/bin:$PATH
+export PATH
+PATH=/home/work/zhangjiyang/scm_autobild/usr/bin:$PATH
+export PATH
+PATH=/home/work/pre-submit/usr/bin:$PATH
+export PATH
+PATH=/home/work/.BCloud/bin:$PATH
+export PATH

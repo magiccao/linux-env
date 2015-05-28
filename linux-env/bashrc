@@ -1,0 +1,17 @@
+# .bashrc
+
+# User specific aliases and functions
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+
+alias "tmux"='tmux -2'
+PATH=/home/work/zhangjiyang/tools/svn/bin:/home/work/zhangjiyang/tools/python/bin:$PATH
+
+BFE=/home/work/zhangjiyang/BFE/workroot/op/oped/noah/bfe/bfe
+export BFE
+export PATH
+[[ -s "/home/work/.jumbo/etc/bashrc" ]] && source "/home/work/.jumbo/etc/bashrc"

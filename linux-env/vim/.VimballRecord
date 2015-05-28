@@ -1,0 +1,2 @@
+winmanager(1).vmb: call delete('/home/work/.vim/doc/winmanager.txt')|call delete('/home/work/.vim/plugin/winfileexplorer.vim')|call delete('/home/work/.vim/plugin/winmanager.vim')|call delete('/home/work/.vim/plugin/wintagexplorer.vim')
+supertab.vmb: call delete('/Users/zhangjiyang/.vim/doc/supertab.txt')|call delete('/Users/zhangjiyang/.vim/plugin/supertab.vim')

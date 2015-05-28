@@ -1,0 +1,33 @@
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+. ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/bin:/home/work/zhangjiyang/tools/svn/bin
+
+export PATH
+#unset USERNAME
+
+
+alias "load"='wget -q -O- --timeout=60 "127.0.0.1:8299/cmd&add_black_cookie_file&360_cookielist:/home/work/bfe/data/360_cookielist.add"'
+alias "reload"='wget -q -O- --timeout=300 "127.0.0.1:8299/cmd&reload_black_cookie_file&360_cookielist:/home/work/bfe/data/360_cookielist.add"'
+### BEGIN-ERRHUNTER-PATH please don't manualy change this format!! Or it will cause failure!
+export ERRHUNTER_HOME=/home/work/btest/errHunter
+export PATH=$ERRHUNTER_HOME:$PATH
+export LD_LIBRARY_PATH=$ERRHUNTER_HOME/lib/:$LD_LIBRARY_PATH
+### END-ERRHUNTER-PATH #################
+
+
+###############Please don't modify this section, or errors will occur!###############
+#BTEST_FLAG_START
+export BTEST_WORK_ROOT=/home/work//
+export BTEST_HOME=/home/work/btest
+export GTEST_HOME=/home/work/com/btest/gtest/output
+export LD_LIBRARY_PATH=$GTEST_HOME/lib:$LD_LIBRARY_PATH
+export PATH=$BTEST_HOME/bin:$PATH
+#BTEST_FLAG_END
+###############Please don't modify this section, or errors will occur!###############

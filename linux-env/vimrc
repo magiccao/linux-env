@@ -1,0 +1,379 @@
+"config begin
+"impressive : http://amix.dk/vim/vimrc.html
+
+" history存储长度。
+set history=1000       
+"插件
+call pathogen#infect()
+"禁止自动下载
+let g:go_disable_autoinstall = 1
+let g:winManagerWindowLayout = "FileExplorer" 
+
+"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+"
+" For cursor moving in insert mode(Not recommended)
+"inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
+"inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
+"inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
+"inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
+" Or set this.
+"let g:neocomplete#enable_cursor_hold_i = 1
+" Or set this.
+"let g:neocomplete#enable_insert_char_pre = 1
+"
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+"
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+"
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+"检测文件类型
+filetype on
+" 针对不同的文件类型采用不同的缩进格式  
+filetype indent on               
+"允许插件  
+filetype plugin on
+"启动自动补全
+"filetype plugin indent on
+
+" 非兼容vi模式。去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限
+set nocompatible      
+set autoread          " 文件修改之后自动载入。
+set shortmess=atI       " 启动的时候不显示那个援助索马里儿童的提示
+
+" 取消备份。
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+set autoindent
+set cindent
+"粘贴时保持格式
+"set paste
+"- 则点击光标不会换,用于复制
+set mouse-=a           " 在所有的模式下面打开鼠标。
+set selection=exclusive  
+set selectmode=mouse,key
+
+" No annoying sound on errors
+" 去掉输入错误的提示声音
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+
+"==========================================
+" show and format
+"==========================================
+"显示行号：
+set number
+set nowrap                    " 取消换行。
+""为方便复制，用<F2>开启/关闭行号显示:
+nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
+
+
+"括号配对情况
+"set showmatch
+" How many tenths of a second to blink when matching brackets
+"set mat=2
+
+"设置文内智能搜索提示
+" 高亮search命中的文本。
+set hlsearch          
+" 搜索时忽略大小写
+set ignorecase
+" 随着键入即时搜索
+set incsearch
+" 有一个或以上大写字母时仍大小写敏感
+set smartcase
+
+" 代码折叠
+"set foldenable
+" 折叠方法
+" manual    手工折叠
+" indent    使用缩进表示折叠
+" expr      使用表达式定义折叠
+" syntax    使用语法定义折叠
+" diff      对没有更改的文本进行折叠
+" marker    使用标记进行折叠, 默认标记是 {{{ 和 }}}
+"set foldmethod=syntax
+" 在左侧显示折叠的层次
+"set foldcolumn=4
+
+set tabstop=4                " 设置Tab键的宽度        [等同的空格个数]
+set shiftwidth=4
+set expandtab                " 将Tab自动转化成空格    [需要输入真正的Tab键时，使用 Ctrl+V + Tab]
+" 按退格键时可以一次删掉 4 个空格
+set softtabstop=4
+
+set smarttab
+set ai "Auto indent
+set si "Smart indent
+
+"==========================================
+" status
+"==========================================
+"显示当前的行号列号：
+set ruler
+""在状态栏显示正在输入的命令
+set showcmd
+
+" Set 7 lines to the cursor - when moving vertically using j/k 上下滚动,始终在中间
+set so=7
+
+
+" 命令行（在状态行下）的高度，默认为1，这里是2
+"set cmdheight=2
+"set rulerformat=%20(%2*%<%f%=\ %m%r\ %3l\ %c\ %p%%%)
+"set statusline=%F%m%r%h%w\[POS=%l,%v][%p%%]\%{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
+" Always show the status line
+"set laststatus=2
+
+
+"==========================================
+"colors and fonts
+"==========================================
+"开启语法高亮
+syntax enable
+syntax on
+
+"配色方案 三种,选一个
+"colorscheme darkblue          " 深蓝色配色方案。
+
+"colorscheme desert " 经典配色方案。
+"set background=dark
+
+"同sublime text2
+colorscheme molokai
+set t_Co=256
+
+"set background=dark
+
+" Set extra options when running in GUI mode
+if has("gui_running")
+    set guioptions-=T
+    set guioptions+=e
+    set t_Co=256
+    set guitablabel=%M\ %t
+endif
+"set guifont=Monaco:h20          " 字体 && 字号  
+
+"==========================================
+" file encode
+"==========================================
+" 设置新文件的编码为 UTF-8
+"set fileencoding=utf-8
+set encoding=utf-8
+set fencs=utf-8,gbk,ucs-bom,gb18030,gb2312,cp936
+set enc=2byte-gb18030
+" 自动判断编码时，依次尝试以下编码：
+set fileencodings=ucs-bom,utf-8,gb18030,default
+" gb18030 最好在 UTF-8 前面，否则其它编码的文件极可能被误识为 UTF-8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+" 如遇Unicode值大于255的文本，不必等到空格再折行。
+set formatoptions+=m
+" 合并两行中文时，不在中间加空格：
+set formatoptions+=B
+
+
+"==========================================
+"others
+"==========================================
+
+autocmd! bufwritepost _vimrc source % " vimrc文件修改之后自动加载。 windows。
+autocmd! bufwritepost .vimrc source % " vimrc文件修改之后自动加载。 linux。
+
+
+" 自动完成 
+
+"set completeopt=longest,menu
+" 增强模式中的命令行自动完成操作
+set wildmenu
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+
+" Python 文件的一般设置，比如不要 tab 等
+autocmd FileType python set tabstop=4 shiftwidth=4 expandtab
+autocmd FileType ruby   set tabstop=2 shiftwidth=2 expandtab
+autocmd FileType go     set tabstop=4 shiftwidth=4 expandtab
+
+set nocursorline              " 突出显示当前行
+autocmd FileType ruby set nocursorline
+
+"自动补全配置
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+
+
+" Return to last edit position when opening files (You want this!)
+autocmd BufReadPost *
+     \ if line("'\"") > 0 && line("'\"") <= line("$") |
+     \   exe "normal! g`\"" |
+     \ endif
+
+" A buffer becomes hidden when it is abandoned
+set hid
+
+" For regular expressions turn magic on
+set magic
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+autocmd FileType python map <F12> :!python %<CR>
+autocmd FileType c      map <F12> :!gcc %<CR>
+autocmd FileType cpp    map <F12> :!g++ %<CR>
+autocmd FileType c  map <F9>  :!./a.out<CR>
+autocmd FileType cpp map <F9> : !./a.out<CR>
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow=1
+
+"map <F4> :Tlist<CR>
+
+" 关闭vim-go 的自动fmt 
+let g:go_fmt_autosave = 0
+
+" tagbar的插件
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
+
+
+"map <c-h> <c-w>h
+"map <c-j> <c-w>j
+"map <c-k> <c-w>k
+"map <c-l> <c-w>l
+"map <c-o> <c-w>o
+
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+" 使用supertab代替默认补全
+let g:SuperTabDefaultCompletionType = "<c-x><c-u>"
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
+map <F6> :WMToggle<CR>
+map <F5> :TagbarToggle<CR>
+map <F7> :set expandtab \| retab <CR> <CR>
+
+
+"config for syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_ignore_files=[".*\.go$"]
+let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_w = 0

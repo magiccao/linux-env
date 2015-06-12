@@ -327,7 +327,7 @@ endfunction
 function! <SID>GetUserName()
 	let home = $HOME
 	let user = matchstr(home, '[^/\\]\+$')
-    let user = "zhangjiyang01@baidu.com"
+    let user = "d.cao@qunar.com"
 	return user
 endfunction
 
@@ -444,7 +444,7 @@ function! <SID>GetVer()
 endfunction
 
 function! <SID>GetEmail()
-  return "zhangjiyang01@baidu.com"
+  return "d.cao@qunar.com"
 endfunction
 
 function! <SID>GetDoxFileHeader(leading_blank)
@@ -452,7 +452,7 @@ function! <SID>GetDoxFileHeader(leading_blank)
 	let doc = ""
   let doc = doc. a:leading_blank."/***************************************************************************\n"
 	let doc = doc. a:leading_blank." * \n"
-  let doc = doc. a:leading_blank." * Copyright (c) ".<SID>GetYear()." Baidu.com, Inc. All Rights Reserved\n"
+  let doc = doc. a:leading_blank." * Copyright (c) ".<SID>GetYear()." Qunar.com, Inc. All Rights Reserved\n"
   let doc = doc. a:leading_blank." * $Id$ \n"
   let doc = doc. a:leading_blank." * \n"
   let doc = doc. a:leading_blank." **************************************************************************/\n"

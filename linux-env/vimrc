@@ -1,6 +1,5 @@
 "config begin
 "impressive : http://amix.dk/vim/vimrc.html
-
 " history存储长度。
 set history=1000       
 "插件
@@ -53,7 +52,6 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 
-
 " Close popup by <Space>.
 "inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 "
@@ -75,10 +73,11 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
 "let g:neocomplete#enable_auto_select = 1
 "let g:neocomplete#disable_auto_complete = 1
 "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-"
+
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType java setlocal omnifunc=javacomplete#Complete
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
@@ -87,9 +86,9 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
-"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
@@ -102,7 +101,7 @@ filetype indent on
 "允许插件  
 filetype plugin on
 "启动自动补全
-"filetype plugin indent on
+filetype plugin indent on
 
 " 非兼容vi模式。去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限
 set nocompatible      
@@ -145,7 +144,7 @@ nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 "括号配对情况
 "set showmatch
 " How many tenths of a second to blink when matching brackets
-"set mat=2
+set mat=2
 
 "设置文内智能搜索提示
 " 高亮search命中的文本。
@@ -198,7 +197,7 @@ set so=7
 "set statusline=%F%m%r%h%w\[POS=%l,%v][%p%%]\%{strftime(\"%d/%m/%y\ -\ %H:%M\")}
 set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
 " Always show the status line
-"set laststatus=2
+set laststatus=2
 
 
 "==========================================
@@ -233,8 +232,9 @@ endif
 " file encode
 "==========================================
 " 设置新文件的编码为 UTF-8
-"set fileencoding=utf-8
+set fileencoding=utf-8
 set encoding=utf-8
+set termencoding=utf-8
 set fencs=utf-8,gbk,ucs-bom,gb18030,gb2312,cp936
 set enc=2byte-gb18030
 " 自动判断编码时，依次尝试以下编码：
@@ -260,7 +260,7 @@ autocmd! bufwritepost .vimrc source % " vimrc文件修改之后自动加载。 l
 
 " 自动完成 
 
-"set completeopt=longest,menu
+set completeopt=longest,menu
 " 增强模式中的命令行自动完成操作
 set wildmenu
 " Ignore compiled files
@@ -303,10 +303,30 @@ let Tlist_Exit_OnlyWindow=1
 
 "map <F4> :Tlist<CR>
 
-" 关闭vim-go 的自动fmt 
-let g:go_fmt_autosave = 0
+" diable fmt on save
+"let g:go_fmt_autosave = 0
+"use goimports when quit vim
+let g:go_fmt_command = "goimports"
+autocmd BufWritePre '*.go :Fmt'
 
-" tagbar的插件
+" use error check
+if exists("b:did_ftplugin_go_errcheck") || !executable("errcheck")
+  finish
+endif
+
+command! -buffer ErrCheck call s:ErrCheck()
+
+function! s:ErrCheck() abort
+  let mx = '\S\+:\d\+:\d\+:[^:]\+:[^:]\+$'
+  let lines = system('errcheck ' . shellescape(expand('%:p:h')))
+  cexpr join(map(split(lines, "\n"), 'matchstr(v:val, mx)'), "\n")
+endfunction
+
+let b:did_ftplugin_go_errcheck = 1
+
+" when click 'gd', the window will split
+let g:godef_split=1
+
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
@@ -364,6 +384,7 @@ endif
 map <F6> :WMToggle<CR>
 map <F5> :TagbarToggle<CR>
 map <F7> :set expandtab \| retab <CR> <CR>
+map <F8> :NERDTreeToggle<CR>
 
 
 "config for syntastic
